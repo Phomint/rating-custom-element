@@ -1,16 +1,23 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {Injector, NgModule} from '@angular/core';
 
-import { AppComponent } from './app.component';
+import { RatingComponent } from './rating.component';
+import {createCustomElement} from '@angular/elements';
 
 @NgModule({
   declarations: [
-    AppComponent
+    RatingComponent
   ],
   imports: [
     BrowserModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  entryComponents: [RatingComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private injector: Injector) {
+    const component = createCustomElement(RatingComponent, {injector});
+    customElements.define('mt-rating', component);
+  }
+  ngDoBootstrap() {}
+}
